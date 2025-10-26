@@ -134,9 +134,15 @@
         <label for="fullName" class="block text-sm font-medium text-gray-700">ชื่อ-สกุล:</label>
         <input type="text" id="fullName" name="fullName" class="input-field mt-1" required>
       </div>
-      <div>
-        <label for="classroom" class="block text-sm font-medium text-gray-700">ชั้น:</label>
-        <input type="text" id="classroom" name="classroom" class="input-field mt-1" required>
+      <div class="col mt-1">
+        <label class="form-label"><i class="bi bi-people-fill"></i> ประเภทร้านค้า</label>
+        <select class="form-select" id="classroom">
+          <option value="" selected >กรุณาเลือก</option>
+          <option value="Diamond">Diamond</option>
+          <option value="Goal">Goal</option>
+          <option value="Silver">Silver</option>
+          <option value="bronze">bronze</option>
+        </select>
       </div>
       <div>
         <label for="phone" class="block text-sm font-medium text-gray-700">เบอร์โทร:</label>
@@ -272,4 +278,5 @@
   </script>
 </body>
 </html>
+
 
