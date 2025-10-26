@@ -84,21 +84,19 @@
         <input type="text" id="nameline" name="nameline" class="input-field mt-1" readonly>
       </div>
       <div>
-        <label for="fullName" class="block text-sm font-medium text-gray-700">รหัสร้าน1:</label>
+        <label for="fullName" class="block text-sm font-medium text-gray-700">ชื่อ-สกุล:</label>
         <input type="text" id="fullName" name="fullName" class="input-field mt-1" readonly>
       </div>
       <div>
-        <label for="fullName" class="block text-sm font-medium text-gray-700">ชื่อร้านค้า:</label>
-        <input type="text" id="type" name="type" class="input-field mt-1" readonly>
-      </div> 
-      <div class="col mt-1">
-        <label class="form-label"><i class="bi bi-people-fill"></i> ประเภทร้านค้า</label>
-        <select class="form-select" id="filter-diagGroup-input">
-          <option value="" selected >กรุณาเลือก</option>
-          <option value="Diamond">Diamond</option>
-          <option value="Goal">Goal</option>
-          <option value="Silver">Silver</option>
-          <option value="bronze">bronze</option>
+        <label for="classroom" class="block text-sm font-medium text-gray-700">ชั้น:</label>
+        <select id="classroom" name="classroom" class="input-field mt-1" readonly>
+          <option value="">เลือกชั้นเรียน</option>
+          <option value="ม.1">ม.1</option>
+          <option value="ม.2">ม.2</option>
+          <option value="ม.3">ม.3</option>
+          <option value="ม.4">ม.4</option>
+          <option value="ม.5">ม.5</option>
+          <option value="ม.6">ม.6</option>
         </select>
       </div>
       <div>
@@ -120,7 +118,7 @@
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyMqBQA4A-h-b2l_KtEwfcCRGRENX2p-hidPJ35VubVOQZVE--J_CL1FK6JjLdVtfCkAw/exec';
-    const EDIT_PROFILE_URL = 'https://liff.line.me/2008350853-QEq6vlZ8?linkurl=https://intersthec.github.io/test-vparner/editprofilestudent.html';
+    const EDIT_PROFILE_URL = 'https://liff.line.me/2008350853-QEq6vlZ8?linkurl=https://github.com/intersthec/test-vparner.git/editprofilestudent.html';
     let userProfile;
 
     async function initializeLiff() {
@@ -183,7 +181,6 @@
       document.getElementById('nameline').value = userData.nameline || '';
       document.getElementById('fullName').value = userData.fullName || '';
       document.getElementById('classroom').value = userData.classroom || '';
-      document.getElementById('type').value = userData.type || '';
       document.getElementById('phone').value = userData.phone || '';
     }
 
@@ -358,7 +355,7 @@
                   action: {
                     type: 'uri',
                     label: 'บันทึกความดีเพิ่ม',
-                    uri: 'line://app/2008350853-QEq6vlZ8?linkurl=https://intersthec.github.io/test-vparner/recordofgooddeeds.html'
+                    uri: 'line://app/2008350853-QEq6vlZ8?linkurl=https://test-v-parner.netlify.app/recordofgooddeeds.html'
                   }
                 }
               ],
@@ -395,8 +392,4 @@
     window.onload = initializeLiff;
   </script>
 </body>
-
 </html>
-
-
-
