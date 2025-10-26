@@ -136,15 +136,7 @@
       </div>
       <div>
         <label for="classroom" class="block text-sm font-medium text-gray-700">ชั้น:</label>
-        <select id="classroom" name="classroom" class="input-field mt-1" readonly>
-          <option value="">เลือกชั้นเรียน</option>
-          <option value="ม.1">ม.1</option>
-          <option value="ม.2">ม.2</option>
-          <option value="ม.3">ม.3</option>
-          <option value="ม.4">ม.4</option>
-          <option value="ม.5">ม.5</option>
-          <option value="ม.6">ม.6</option>
-        </select>
+        <input type="text" id="classroom" name="classroom" class="input-field mt-1" required>
       </div>
       <div>
         <label for="phone" class="block text-sm font-medium text-gray-700">เบอร์โทร:</label>
@@ -168,7 +160,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweA_WoqNqfpTZIXh0cL7QkhXx_UODJjQ_peNG2ayHQ_oGDiZwEtTDZn3y8lxPtB7Be/exec';
-    const BOOKING_PAGE_URL = 'https://liff.line.me/2008350853-QEq6vlZ8?linkurl= https://intersthec.github.io/test-vparner/recordofgooddeeds.html';
+    const BOOKING_PAGE_URL = 'https://liff.line.me/2008350853-QEq6vlZ8?linkurl=https://intersthec.github.io/test-vparner/recordofgooddeeds.html';
 
     async function initializeLiff() {
       try {
@@ -279,5 +271,4 @@
     initializeLiff();
   </script>
 </body>
-
 </html>
