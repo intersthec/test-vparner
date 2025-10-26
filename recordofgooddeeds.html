@@ -84,9 +84,13 @@
         <input type="text" id="nameline" name="nameline" class="input-field mt-1" readonly>
       </div>
       <div>
-        <label for="fullName" class="block text-sm font-medium text-gray-700">ชื่อ-สกุล:</label>
+        <label for="fullName" class="block text-sm font-medium text-gray-700">รหัสร้าน:</label>
         <input type="text" id="fullName" name="fullName" class="input-field mt-1" readonly>
       </div>
+      <div>
+        <label for="fullName" class="block text-sm font-medium text-gray-700">ชื่อร้านค้า:</label>
+        <input type="text" id="type" name="type" class="input-field mt-1" readonly>
+      </div> 
       <div class="col mt-1">
         <label class="form-label"><i class="bi bi-people-fill"></i> ประเภทร้านค้า</label>
         <select class="form-select" id="filter-diagGroup-input">
@@ -179,6 +183,7 @@
       document.getElementById('nameline').value = userData.nameline || '';
       document.getElementById('fullName').value = userData.fullName || '';
       document.getElementById('classroom').value = userData.classroom || '';
+      document.getElementById('type').value = userData.type || '';
       document.getElementById('phone').value = userData.phone || '';
     }
 
@@ -353,7 +358,7 @@
                   action: {
                     type: 'uri',
                     label: 'บันทึกความดีเพิ่ม',
-                    uri: 'line://app/2008350853-QEq6vlZ8?linkurl=https://test-v-parner.netlify.app/recordofgooddeeds.html'
+                    uri: 'line://app/2008350853-QEq6vlZ8?linkurl=https://intersthec.github.io/test-vparner/recordofgooddeeds.html'
                   }
                 }
               ],
@@ -392,4 +397,5 @@
 </body>
 
 </html>
+
 
