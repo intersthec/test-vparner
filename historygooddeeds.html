@@ -155,7 +155,7 @@
     let records = [];
 
     async function initializeLiff() {
-      await liff.init({ liffId: 'xxxxxxxxxxxxxx' });
+      await liff.init({ liffId: '2008350853-QEq6vlZ8' });
       if (liff.isLoggedIn()) {
         userProfile = await liff.getProfile();
         const userId = userProfile.userId;
@@ -360,4 +360,5 @@
     window.onload = initializeLiff;
   </script>
 </body>
+
 </html>
