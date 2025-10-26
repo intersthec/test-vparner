@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบบันทึกความดีนักเรียน</title>
+  <meta name="title" content="ระบบบันทึกความดีนักเรียน" />
+  <meta name="description" content="ระบบบันทึกความดีนักเรียน" />
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="msapplication-tap-highlight" content="no"/>
+  <link rel="shortcut icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
+  <meta property="og:url" content="/"/>
+  <meta property="og:title" content="ระบบบันทึกความดีนักเรียน"/>
+  <meta property="og:description" content="ระบบบันทึกความดีนักเรียน"/>
+  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-title" content="ระบบบันทึกความดีนักเรียน"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- LineSeed Fonts -->
+  <link href="https://cdn.jsdelivr.net/gh/maketline/goodday/font/stylesheet.min.css" rel="stylesheet">
+  <!-- Custom Styles -->
+  <style>
+    body {
+      font-family: 'line_seed_sans_th', sans-serif;
+      background: linear-gradient(135deg, #1e90ff, #1565c0); /* ปรับเป็นโทนน้ำฟ้าเข้ม */
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+    .form-container {
+      max-width: 28rem; /* 448px */
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      margin: 0 auto;
+    }
+    .profile-image {
+      display: block;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      width: 7.5rem; /* 120px */
+      height: 7.5rem;
+      object-fit: cover;
+      border: 3px solid #1e90ff; /* ปรับเป็นน้ำฟ้าเข้ม */
+    }
+    .input-field {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #1e90ff; /* ปรับเป็นน้ำฟ้าเข้ม */
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: #1e90ff; /* ปรับเป็นน้ำฟ้าเข้ม */
+      box-shadow: 0 0 5px rgba(30, 144, 255, 0.3); /* ปรับ shadow เป็นโทนน้ำฟ้าเข้ม */
+    }
+    .input-field[readonly] {
+      background-color: #eceff1;
+      color: #607d8b;
+    }
+    .textarea-field {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #1e90ff; /* ปรับเป็นน้ำฟ้าเข้ม */
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      min-height: 6rem; /* 96px */
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+    .textarea-field:focus {
+      outline: none;
+      border-color: #1e90ff; /* ปรับเป็นน้ำฟ้าเข้ม */
+      box-shadow: 0 0 5px rgba(30, 144, 255, 0.3); /* ปรับ shadow เป็นโทนน้ำฟ้าเข้ม */
+    }
+    #errorMessage {
+      color: #d32f2f;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 640px) {
+      .profile-image { width: 5rem; height: 5rem; }
+      .form-container { padding: 1.5rem; }
+      .input-field, .textarea-field { font-size: 0.9rem; padding: 0.5rem; }
+    }
+
+    /* Updated button styles */
+    .submit-button {
+      background-color: #1e90ff; /* ปรับเป็นน้ำฟ้าเข้ม */
+      color: white;
+      font-weight: bold;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .submit-button:hover {
+      background-color: #1565c0; /* สีน้ำฟ้าเข้มขึ้นเมื่อ hover */
+    }
+    .submit-button:disabled {
+      background-color: #87cefa; /* สีน้ำฟ้าอ่อนเมื่อ disabled */
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1 class="text-3xl sm:text-4xl font-bold text-center mb-6 text-gray-600">แก้ไขข้อมูลนักเรียน</h1>
+    <img id="profileImage" class="profile-image" src="" alt="Profile Image">
+    <form id="userForm" class="space-y-5">
+      <div class="hidden">
+        <label for="uid" class="block text-sm font-medium text-gray-700">UID:</label>
+        <input type="text" id="uid" name="uid" class="input-field mt-1" readonly>
+      </div>
+      <div>
+        <label for="displayName" class="block text-sm font-medium text-gray-700">ชื่อในระบบ:</label>
+        <input type="text" id="displayName" name="displayName" class="input-field mt-1" readonly>
+      </div>
+      <div>
+        <label for="points" class="block text-sm font-medium text-gray-700">คะแนนความดีสะสม:</label>
+        <input type="number" id="points" name="points" class="input-field mt-1" readonly>
+      </div>
+      <div>
+        <label for="fullName" class="block text-sm font-medium text-gray-700">ชื่อ-สกุล:</label>
+        <input type="text" id="fullName" name="fullName" class="input-field mt-1" required>
+      </div>
+      <div>
+        <label for="classroom" class="block text-sm font-medium text-gray-700">ชั้น:</label>
+        <select id="classroom" name="classroom" class="input-field mt-1" readonly>
+          <option value="">เลือกชั้นเรียน</option>
+          <option value="ม.1">ม.1</option>
+          <option value="ม.2">ม.2</option>
+          <option value="ม.3">ม.3</option>
+          <option value="ม.4">ม.4</option>
+          <option value="ม.5">ม.5</option>
+          <option value="ม.6">ม.6</option>
+        </select>
+      </div>
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700">เบอร์โทร:</label>
+        <input type="tel" id="phone" name="phone" class="input-field mt-1" pattern="[0-9]{10}" title="กรุณากรอกเบอร์โทร 10 หลัก" required>
+      </div>
+      <div>
+        <label for="agree" class="block text-sm font-medium text-gray-700">
+          <input type="checkbox" id="agree" name="agree" class="mr-2" required>
+          ยอมรับข้อมูลของท่านตามเงื่อนไขที่กำหนด
+        </label>
+      </div>
+      <div class="text-center">
+        <button type="submit" id="submitButton" class="submit-button" disabled>บันทึกการเปลี่ยนแปลง</button>
+      </div>
+    </form>
+    <p id="errorMessage"></p>
+  </div>
+
+  <!-- LIFF and SweetAlert2 -->
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweA_WoqNqfpTZIXh0cL7QkhXx_UODJjQ_peNG2ayHQ_oGDiZwEtTDZn3y8lxPtB7Be/exec';
+    const BOOKING_PAGE_URL = 'https://liff.line.me/2008350853-QEq6vlZ8?linkurl=https://github.com/intersthec/test-vparner.git/recordofgooddeeds.html';
+
+    async function initializeLiff() {
+      try {
+        await liff.init({ liffId: '2008350853-QEq6vlZ8' });
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+
+        const profile = await liff.getProfile();
+        document.getElementById('uid').value = profile.userId;
+        document.getElementById('displayName').value = profile.displayName;
+        document.getElementById('profileImage').src = profile.pictureUrl || 'https://via.placeholder.com/100';
+
+        await fetchUserData(profile.userId);
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'เกิดข้อผิดพลาด',
+          text: 'ไม่สามารถโหลดข้อมูลได้: ' + error.message,
+          confirmButtonColor: '#1e90ff' /* ปรับเป็นน้ำฟ้าเข้ม */
+        });
+      }
+    }
+
+    async function fetchUserData(userId) {
+      if (!userId) return;
+
+      const loadingDialog = showLoading('กำลังดึงข้อมูล...');
+      try {
+        const response = await fetch(`${SCRIPT_URL}?userId=${userId}`);
+        if (!response.ok) throw new Error(`การเชื่อมต่อล้มเหลว: ${response.status}`);
+
+        const data = await response.json();
+        if (data.error) throw new Error(data.error);
+
+        populateForm(data);
+        document.getElementById('errorMessage').textContent = '';
+      } catch (error) {
+        document.getElementById('errorMessage').textContent = 'เกิดข้อผิดพลาด: ' + error.message;
+      } finally {
+        loadingDialog.close();
+      }
+    }
+
+    function populateForm(userData) {
+      document.getElementById('points').value = userData.points || 0;
+      document.getElementById('fullName').value = userData.fullName || '';
+      document.getElementById('classroom').value = userData.classroom || '';
+      document.getElementById('phone').value = userData.phone || '';
+    }
+
+    document.getElementById('userForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitButton = document.getElementById('submitButton');
+      submitButton.disabled = true;
+      submitButton.textContent = 'กำลังบันทึก...';
+
+      const formData = new FormData(e.target);
+      formData.append('action', 'saveData');
+
+      const loadingDialog = showLoading('กำลังบันทึกข้อมูล...');
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+
+        if (result.status === 'error') throw new Error(result.message);
+
+        Swal.fire({
+          icon: 'success',
+          title: 'บันทึกสำเร็จ',
+          text: result.message || 'ข้อมูลของคุณถูกบันทึกเรียบร้อยแล้ว',
+          confirmButtonColor: '#1e90ff' /* ปรับเป็นน้ำฟ้าเข้ม */
+        }).then(() => {
+          liff.openWindow({ url: BOOKING_PAGE_URL });
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'เกิดข้อผิดพลาด',
+          text: error.message,
+          confirmButtonColor: '#1e90ff' /* ปรับเป็นน้ำฟ้าเข้ม */
+        });
+      } finally {
+        loadingDialog.close();
+        submitButton.disabled = false;
+        submitButton.textContent = 'บันทึกการเปลี่ยนแปลง';
+      }
+    });
+
+    document.getElementById('agree').addEventListener('change', (e) => {
+      const submitButton = document.getElementById('submitButton');
+      submitButton.disabled = !e.target.checked;
+    });
+
+    function showLoading(message) {
+      Swal.fire({
+        title: message,
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
+      return { close: () => Swal.close() };
+    }
+
+    initializeLiff();
+  </script>
+</body>
+</html>
