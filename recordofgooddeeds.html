@@ -87,16 +87,18 @@
         <label for="fullName" class="block text-sm font-medium text-gray-700">รหัสร้านค้า:</label>
         <input type="text" id="fullName" name="fullName" class="input-field mt-1" readonly>
       </div>
-      <div>
-        <label for="classroom" class="block text-sm font-medium text-gray-700">ชั้น:</label>
-        <select id="classroom" name="classroom" class="input-field mt-1" readonly>
-          <option value="">เลือกชั้นเรียน</option>
-          <option value="ม.1">ม.1</option>
-          <option value="ม.2">ม.2</option>
-          <option value="ม.3">ม.3</option>
-          <option value="ม.4">ม.4</option>
-          <option value="ม.5">ม.5</option>
-          <option value="ม.6">ม.6</option>
+       <div>
+        <label for="fullName" class="block text-sm font-medium text-gray-700">ชื่อร้านค้า:</label>
+        <input type="text" id="Nameshop" name="Nameshop" class="input-field mt-1" readonly>
+      </div>
+     <div class="col mt-1">
+        <label class="form-label"><i class="bi bi-people-fill"></i> ประเภทร้านค้า</label>
+        <select class="form-select" id="filter-diagGroup-input">
+          <option value="" selected >กรุณาเลือก</option>
+          <option value="Diamond">Diamond</option>
+          <option value="Goal">Goal</option>
+          <option value="Silver">Silver</option>
+          <option value="bronze">bronze</option>
         </select>
       </div>
       <div>
@@ -393,3 +395,4 @@
   </script>
 </body>
 </html>
+
