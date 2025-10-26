@@ -73,7 +73,7 @@
 </head>
 <body>
   <div class="form-container">
-    <h1 class="text-3xl sm:text-4xl font-bold text-center mb-6 text-gray-600">บันทึกความดีของนักเรียน</h1>
+    <h1 class="text-3xl sm:text-4xl font-bold text-center mb-6 text-gray-600">บันทึกคะแนน</h1>
     <form id="studentForm" class="space-y-5">
       <div class="hidden">
         <label for="uid" class="block text-sm font-medium text-gray-700">UID:</label>
@@ -182,6 +182,7 @@
       document.getElementById('uid').value = userData.uid || '';
       document.getElementById('nameline').value = userData.nameline || '';
       document.getElementById('fullName').value = userData.fullName || '';
+      document.getElementById('Nameshop').value = userData.Nameshop || '';
       document.getElementById('classroom').value = userData.classroom || '';
       document.getElementById('phone').value = userData.phone || '';
     }
@@ -248,7 +249,7 @@
                       contents: [
                         {
                           type: 'text',
-                          text: 'ชื่อ-สกุล:',
+                          text: 'รหัสร้านค้า:',
                           color: '#aaaaaa',
                           size: 'sm',
                           flex: 2
@@ -263,13 +264,34 @@
                         }
                       ]
                     },
+                     {
+                      type: 'box',
+                      layout: 'baseline',
+                      contents: [
+                        {
+                          type: 'text',
+                          text: 'ชื่อร้านค้า:',
+                          color: '#aaaaaa',
+                          size: 'sm',
+                          flex: 2
+                        },
+                        {
+                          type: 'text',
+                          text: formData.get('Nameshop'),
+                          wrap: true,
+                          color: '#666666',
+                          size: 'sm',
+                          flex: 4
+                        }
+                      ]
+                    },
                     {
                       type: 'box',
                       layout: 'baseline',
                       contents: [
                         {
                           type: 'text',
-                          text: 'ชั้น:',
+                          text: 'ประเภทร้านค้า:',
                           color: '#aaaaaa',
                           size: 'sm',
                           flex: 2
@@ -395,4 +417,5 @@
   </script>
 </body>
 </html>
+
 
