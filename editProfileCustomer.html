@@ -1,1 +1,289 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา</title>
+  <meta name="title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา" />
+  <meta name="description" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา" />
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="msapplication-tap-highlight" content="no"/>
+  <link rel="shortcut icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
+  <meta property="og:url" content="/"/>
+  <meta property="og:title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
+  <meta property="og:description" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
+  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- LineSeed Fonts -->
+  <link href="https://cdn.jsdelivr.net/gh/maketline/goodday/font/stylesheet.min.css" rel="stylesheet">
+  <!-- Custom Styles -->
+  <style>
+    body {
+      font-family: 'line_seed_sans_th', sans-serif;
+      background: linear-gradient(135deg, #1e90ff, #1565c0);
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+    .form-container {
+      max-width: 32rem;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      margin: 0 auto;
+    }
+    .profile-image {
+      display: block;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      width: 7.5rem;
+      height: 7.5rem;
+      object-fit: cover;
+      border: 3px solid #1e90ff;
+    }
+    .input-field {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #1e90ff;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: #1e90ff;
+      box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+    }
+    .input-field[readonly] {
+      background-color: #eceff1;
+      color: #607d8b;
+    }
+    .submit-button {
+      background-color: #1e90ff;
+      color: white;
+      font-weight: bold;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    .submit-button:hover {
+      background-color: #1565c0;
+    }
+    .submit-button:disabled {
+      background-color: #87cefa;
+      cursor: not-allowed;
+    }
+    #errorMessage {
+      color: #d32f2f;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 640px) {
+      .profile-image { width: 5rem; height: 5rem; }
+      .form-container { padding: 1.5rem; }
+      .input-field { font-size: 0.9rem; padding: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1 class="text-3xl sm:text-4xl font-bold text-center mb-6 text-gray-600">บันทึกข้อมูลร้านค้า</h1>
+    <img id="profileImage" class="profile-image" src="" alt="Profile Image">
+    <form id="storeForm" class="space-y-5">
+      <div class="hidden">
+        <label for="uid" class="block text-sm font-medium text-gray-700">UID:</label>
+        <input type="text" id="uid" name="uid" class="input-field mt-1" readonly>
+      </div>
+      <div>
+        <label for="displayName" class="block text-sm font-medium text-gray-700">ชื่อในระบบ:</label>
+        <input type="text" id="displayName" name="displayName" class="input-field mt-1" readonly>
+      </div>
+      <div>
+        <label for="points" class="block text-sm font-medium text-gray-700">คะแนนสะสม:</label>
+        <input type="number" id="points" name="points" class="input-field mt-1" readonly>
+      </div>
+      <div>
+        <label for="storeCode" class="block text-sm font-medium text-gray-700">รหัสร้านค้า:</label>
+        <input type="text" id="storeCode" name="storeCode" class="input-field mt-1" required>
+      </div>
+      <div>
+        <label for="storeName" class="block text-sm font-medium text-gray-700">ชื่อร้านค้า:</label>
+        <input type="text" id="storeName" name="storeName" class="input-field mt-1" required>
+      </div>
+      <div>
+        <label for="storeType" class="block text-sm font-medium text-gray-700">ประเภทร้านค้า:</label>
+        <select id="storeType" name="storeType" class="input-field mt-1" required>
+          <option value="">เลือกประเภทร้านค้า</option>
+          <option value="ร้านอาหาร">ร้านอาหาร</option>
+          <option value="ร้านค้าปลีก">ร้านค้าปลีก</option>
+          <option value="ร้านสะดวกซื้อ">ร้านสะดวกซื้อ</option>
+          <option value="ร้านเครื่องดื่ม">ร้านเครื่องดื่ม</option>
+          <option value="ร้านบริการ">ร้านบริการ</option>
+          <option value="ร้านขายของชำ">ร้านขายของชำ</option>
+          <option value="อื่นๆ">อื่นๆ</option>
+        </select>
+      </div>
+      <div>
+        <label for="storePhone" class="block text-sm font-medium text-gray-700">เบอร์โทรติดต่อ:</label>
+        <input type="tel" id="storePhone" name="storePhone" class="input-field mt-1" 
+               pattern="[0-9]{9,10}" title="กรุณากรอกเบอร์โทร 9-10 หลัก" required>
+      </div>
+      <div>
+        <label for="province" class="block text-sm font-medium text-gray-700">จังหวัด:</label>
+        <select id="province" name="province" class="input-field mt-1" required>
+          <option value="">เลือกจังหวัด</option>
+          <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+          <option value="นนทบุรี">นนทบุรี</option>
+          <option value="ปทุมธานี">ปทุมธานี</option>
+          <option value="สมุทรปราการ">สมุทรปราการ</option>
+          <option value="สมุทรสาคร">สมุทรสาคร</option>
+          <option value="นครปฐม">นครปฐม</option>
+          <option value="ชลบุรี">ชลบุรี</option>
+          <option value="ระยอง">ระยอง</option>
+          <option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา</option>
+          <option value="สระบุรี">สระบุรี</option>
+          <option value="อื่นๆ">อื่นๆ</option>
+        </select>
+      </div>
+      <div>
+        <label for="agree" class="block text-sm font-medium text-gray-700">
+          <input type="checkbox" id="agree" name="agree" class="mr-2" required>
+          ยืนยันว่าข้อมูลที่กรอกถูกต้องตามความเป็นจริง
+        </label>
+      </div>
+      <div class="text-center">
+        <button type="submit" id="submitButton" class="submit-button" disabled>บันทึกข้อมูลร้านค้า</button>
+      </div>
+    </form>
+    <p id="errorMessage"></p>
+  </div>
+
+  <!-- LIFF and SweetAlert2 -->
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzaCgK5C3il4rhx1_Sh3f5cxt9T0xC8ZciJP1l_oL0A9iCt6BFP8h_h9H1B4A2fm2A0qA/exec';
+
+    async function initializeLiff() {
+      try {
+        await liff.init({ liffId: '2008350853-QEq6vlZ8' });
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+
+        const profile = await liff.getProfile();
+        document.getElementById('uid').value = profile.userId;
+        document.getElementById('displayName').value = profile.displayName;
+        document.getElementById('profileImage').src = profile.pictureUrl || 'https://via.placeholder.com/100';
+
+        await fetchUserData(profile.userId);
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'เกิดข้อผิดพลาด',
+          text: 'ไม่สามารถโหลดข้อมูลได้: ' + error.message,
+          confirmButtonColor: '#1e90ff'
+        });
+      }
+    }
+
+    async function fetchUserData(userId) {
+      if (!userId) return;
+
+      const loadingDialog = showLoading('กำลังดึงข้อมูล...');
+      try {
+        const response = await fetch(`${SCRIPT_URL}?userId=${userId}`);
+        if (!response.ok) throw new Error(`การเชื่อมต่อล้มเหลว: ${response.status}`);
+
+        const data = await response.json();
+        if (data.error) throw new Error(data.error);
+
+        populateForm(data);
+        document.getElementById('errorMessage').textContent = '';
+      } catch (error) {
+        document.getElementById('errorMessage').textContent = 'เกิดข้อผิดพลาด: ' + error.message;
+      } finally {
+        loadingDialog.close();
+      }
+    }
+
+    function populateForm(userData) {
+      document.getElementById('points').value = userData.points || 0;
+      document.getElementById('storeCode').value = userData.storeCode || '';
+      document.getElementById('storeName').value = userData.storeName || '';
+      document.getElementById('storeType').value = userData.storeType || '';
+      document.getElementById('storePhone').value = userData.storePhone || '';
+      document.getElementById('province').value = userData.province || '';
+    }
+
+    document.getElementById('storeForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitButton = document.getElementById('submitButton');
+      submitButton.disabled = true;
+      submitButton.textContent = 'กำลังบันทึก...';
+
+      const formData = new FormData(e.target);
+
+      const loadingDialog = showLoading('กำลังบันทึกข้อมูลร้านค้า...');
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+
+        if (result.status === 'error') throw new Error(result.message);
+
+        Swal.fire({
+          icon: 'success',
+          title: 'บันทึกสำเร็จ',
+          text: result.message || 'ข้อมูลร้านค้าถูกบันทึกเรียบร้อยแล้ว',
+          confirmButtonColor: '#1e90ff'
+        });
+
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'เกิดข้อผิดพลาด',
+          text: error.message,
+          confirmButtonColor: '#1e90ff'
+        });
+      } finally {
+        loadingDialog.close();
+        submitButton.disabled = false;
+        submitButton.textContent = 'บันทึกข้อมูลร้านค้า';
+      }
+    });
+
+    document.getElementById('agree').addEventListener('change', (e) => {
+      const submitButton = document.getElementById('submitButton');
+      submitButton.disabled = !e.target.checked;
+    });
+
+    function showLoading(message) {
+      Swal.fire({
+        title: message,
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
+      return { close: () => Swal.close() };
+    }
+
+    initializeLiff();
+  </script>
+</body>
+</html>
 
