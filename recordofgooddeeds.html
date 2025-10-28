@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ระบบบันทึกความดีนักเรียน</title>
-  <meta name="title" content="ระบบบันทึกความดีนักเรียน" />
-  <meta name="description" content="ระบบบันทึกความดีนักเรียน" />
+  <title>ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา</title>
+  <meta name="title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา" />
+  <meta name="description" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา" />
   <meta name="color-scheme" content="light dark"/>
   <meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
   <meta name="format-detection" content="telephone=no"/>
   <meta name="msapplication-tap-highlight" content="no"/>
   <link rel="shortcut icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
   <meta property="og:url" content="/"/>
-  <meta property="og:title" content="ระบบบันทึกความดีนักเรียน"/>
-  <meta property="og:description" content="ระบบบันทึกความดีนักเรียน"/>
+  <meta property="og:title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
+  <meta property="og:description" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
   <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-title" content="ระบบบันทึกความดีนักเรียน"/>
+  <meta name="apple-mobile-web-app-title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
   <!-- Tailwind CSS CDN -->
@@ -32,7 +32,7 @@
       padding: 1.5rem;
     }
     .form-container {
-      max-width: 28rem;
+      max-width: 32rem;
       background: white;
       border-radius: 1rem;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -73,8 +73,8 @@
 </head>
 <body>
   <div class="form-container">
-    <h1 class="text-3xl sm:text-4xl font-bold text-center mb-6 text-gray-600">บันทึกคะแนน</h1>
-    <form id="studentForm" class="space-y-5">
+    <h1 class="text-3xl sm:text-4xl font-bold text-center mb-6 text-gray-600">บันทึกข้อมูลร้านค้าแต่ละสาขา</h1>
+    <form id="storeForm" class="space-y-5">
       <div class="hidden">
         <label for="uid" class="block text-sm font-medium text-gray-700">UID:</label>
         <input type="text" id="uid" name="uid" class="input-field mt-1" readonly>
@@ -84,33 +84,49 @@
         <input type="text" id="nameline" name="nameline" class="input-field mt-1" readonly>
       </div>
       <div>
-        <label for="fullName" class="block text-sm font-medium text-gray-700">รหัสร้านค้า:</label>
-        <input type="text" id="fullName" name="fullName" class="input-field mt-1" readonly>
+        <label for="storeCode" class="block text-sm font-medium text-gray-700">รหัสร้านค้า:</label>
+        <input type="text" id="storeCode" name="storeCode" class="input-field mt-1" required>
       </div>
-       <div>
-        <label for="fullName" class="block text-sm font-medium text-gray-700">ชื่อร้านค้า:</label>
-        <input type="text" id="Nameshop" name="Nameshop" class="input-field mt-1" readonly>
+      <div>
+        <label for="storeName" class="block text-sm font-medium text-gray-700">ชื่อร้านค้า:</label>
+        <input type="text" id="storeName" name="storeName" class="input-field mt-1" required>
       </div>
-     <div class="col mt-1">
-        <label class="form-label"><i class="bi bi-people-fill"></i> ประเภทร้านค้า</label>
-        <select class="form-select" id="filter-diagGroup-input">
-          <option value="" selected >กรุณาเลือก</option>
-          <option value="Diamond">Diamond</option>
-          <option value="Goal">Goal</option>
-          <option value="Silver">Silver</option>
-          <option value="bronze">bronze</option>
+      <div>
+        <label for="storeType" class="block text-sm font-medium text-gray-700">ประเภทร้านค้า:</label>
+        <select id="storeType" name="storeType" class="input-field mt-1" required>
+          <option value="">เลือกประเภทร้านค้า</option>
+          <option value="ร้านอาหาร">ร้านอาหาร</option>
+          <option value="ร้านค้าปลีก">ร้านค้าปลีก</option>
+          <option value="ร้านสะดวกซื้อ">ร้านสะดวกซื้อ</option>
+          <option value="ร้านเครื่องดื่ม">ร้านเครื่องดื่ม</option>
+          <option value="ร้านบริการ">ร้านบริการ</option>
+          <option value="ร้านขายของชำ">ร้านขายของชำ</option>
+          <option value="อื่นๆ">อื่นๆ</option>
         </select>
       </div>
       <div>
-        <label for="phone" class="block text-sm font-medium text-gray-700">เบอร์โทร:</label>
-        <input type="tel" id="phone" name="phone" class="input-field mt-1" pattern="[0-9]{10}" title="กรุณากรอกเบอร์โทร 10 หลัก" readonly>
+        <label for="storePhone" class="block text-sm font-medium text-gray-700">เบอร์โทรติดต่อ:</label>
+        <input type="tel" id="storePhone" name="storePhone" class="input-field mt-1" pattern="[0-9]{9,10}" title="กรุณากรอกเบอร์โทร 9-10 หลัก" required>
       </div>
       <div>
-        <label for="activity" class="block text-sm font-medium text-gray-700">กิจกรรมความดีที่ทำ:</label>
-        <textarea id="activity" name="activity" class="input-field mt-1" rows="4" required></textarea>
+        <label for="province" class="block text-sm font-medium text-gray-700">จังหวัด:</label>
+        <select id="province" name="province" class="input-field mt-1" required>
+          <option value="">เลือกจังหวัด</option>
+          <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+          <option value="นนทบุรี">นนทบุรี</option>
+          <option value="ปทุมธานี">ปทุมธานี</option>
+          <option value="สมุทรปราการ">สมุทรปราการ</option>
+          <option value="สมุทรสาคร">สมุทรสาคร</option>
+          <option value="นครปฐม">นครปฐม</option>
+          <option value="ชลบุรี">ชลบุรี</option>
+          <option value="ระยอง">ระยอง</option>
+          <option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา</option>
+          <option value="สระบุรี">สระบุรี</option>
+          <option value="อื่นๆ">อื่นๆ</option>
+        </select>
       </div>
       <div class="text-center">
-        <button type="submit" id="submitButton" class="submit-button">บันทึกการเปลี่ยนแปลง</button>
+        <button type="submit" id="submitButton" class="submit-button">บันทึกข้อมูลร้านค้า</button>
       </div>
     </form>
   </div>
@@ -119,8 +135,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyMqBQA4A-h-b2l_KtEwfcCRGRENX2p-hidPJ35VubVOQZVE--J_CL1FK6JjLdVtfCkAw/exec';
-    const EDIT_PROFILE_URL = 'https://liff.line.me/2008350853-QEq6vlZ8?linkurl=https://github.com/intersthec/test-vparner.git/editprofilestudent.html';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgKVVQUTmZIfGHOa2VGxsCrB0sQ1SF3R70_neGVm8ehW0tA2jUtTBaZaanMlZgjQOXTQ/exec';
     let userProfile;
 
     async function initializeLiff() {
@@ -128,33 +143,13 @@
       if (liff.isLoggedIn()) {
         userProfile = await liff.getProfile();
         const userId = userProfile.userId;
-        await fetchUserData(userId);
-
-        // ตรวจสอบค่าว่างทันทีหลังจากโหลดข้อมูล
-        const fullName = document.getElementById('fullName').value;
-        const classroom = document.getElementById('classroom').value;
-        const phone = document.getElementById('phone').value;
-
-        if (!fullName || !classroom || !phone) {
-          Swal.fire({
-            icon: 'warning',
-            title: 'กรุณากรอกข้อมูลให้ครบถ้วน',
-            text: 'คุณต้องกรอกข้อมูลโปรไฟล์ก่อนบันทึกความดี',
-            confirmButtonColor: '#0000ff'
-          }).then(() => {
-            liff.openWindow({
-              url: EDIT_PROFILE_URL,
-              external: false
-            });
-            liff.closeWindow(); // ปิดหน้าปัจจุบันหลังจากเปิดหน้าแก้ไข
-          });
-        }
+        await populateUserInfo(userId);
       } else {
         liff.login();
       }
     }
 
-    async function fetchUserData(userId) {
+    async function populateUserInfo(userId) {
       if (!userId) return;
 
       const loadingDialog = showLoading('กำลังดึงข้อมูล...');
@@ -165,38 +160,28 @@
         const data = await response.json();
         if (data.error) throw new Error(data.error);
 
-        populateForm(data);
+        document.getElementById('uid').value = data.uid || userId;
+        document.getElementById('nameline').value = data.nameline || userProfile.displayName;
       } catch (error) {
-        Swal.fire({
-          icon: 'error',
-          title: 'เกิดข้อผิดพลาด',
-          text: 'เกิดข้อผิดพลาดในการดึงข้อมูล: ' + error.message,
-          confirmButtonColor: '#0000ff'
-        });
+        console.error('Error fetching user data:', error);
+        // หากดึงข้อมูลไม่ได้ ให้ใช้ข้อมูลจาก LINE Profile
+        document.getElementById('uid').value = userId;
+        document.getElementById('nameline').value = userProfile.displayName;
       } finally {
         loadingDialog.close();
       }
     }
 
-    function populateForm(userData) {
-      document.getElementById('uid').value = userData.uid || '';
-      document.getElementById('nameline').value = userData.nameline || '';
-      document.getElementById('fullName').value = userData.fullName || '';
-      document.getElementById('Nameshop').value = userData.Nameshop || '';
-      document.getElementById('classroom').value = userData.classroom || '';
-      document.getElementById('phone').value = userData.phone || '';
-    }
-
-    document.getElementById('studentForm').addEventListener('submit', async (e) => {
+    document.getElementById('storeForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitButton = document.getElementById('submitButton');
       submitButton.disabled = true;
       submitButton.textContent = 'กำลังบันทึก...';
 
       const formData = new FormData(e.target);
-      formData.append('action', 'saveData');
+      formData.append('action', 'saveStoreData');
 
-      const loadingDialog = showLoading('กำลังบันทึกข้อมูล...');
+      const loadingDialog = showLoading('กำลังบันทึกข้อมูลร้านค้า...');
       try {
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
@@ -209,34 +194,34 @@
         await Swal.fire({
           icon: 'success',
           title: 'บันทึกสำเร็จ',
-          html: `ข้อมูลของคุณถูกบันทึกเรียบร้อยแล้ว<br><strong>คะแนนรวม: ${result.totalPoints} คะแนน</strong>`,
+          html: `ข้อมูลร้านค้าถูกบันทึกเรียบร้อยแล้ว<br><strong>จำนวนร้านค้าที่บันทึก: ${result.totalStores} ร้าน</strong>`,
           confirmButtonColor: '#0000ff'
         });
 
         const flexMessage = {
           type: 'flex',
-          altText: 'บันทึกความดีสำเร็จ - คะแนนอัพเดท',
+          altText: 'บันทึกข้อมูลร้านค้าสำเร็จ',
           contents: {
             type: 'bubble',
-            hero: {
-              type: 'image',
-              url: userProfile.pictureUrl,
-              size: 'full',
-              aspectRatio: '1:1',
-              aspectMode: 'cover'
-            },
-            body: {
+            header: {
               type: 'box',
               layout: 'vertical',
               contents: [
                 {
                   type: 'text',
-                  text: '🎉 บันทึกความดีสำเร็จ 🎉',
+                  text: '🏪 บันทึกร้านค้าสำเร็จ 🏪',
                   weight: 'bold',
                   size: 'xl',
                   align: 'center',
-                  color: '#1e90ff'
-                },
+                  color: '#ffffff'
+                }
+              ],
+              backgroundColor: '#1e90ff'
+            },
+            body: {
+              type: 'box',
+              layout: 'vertical',
+              contents: [
                 {
                   type: 'box',
                   layout: 'vertical',
@@ -249,35 +234,14 @@
                       contents: [
                         {
                           type: 'text',
-                          text: 'รหัสร้านค้า:',
+                          text: 'รหัสร้าน:',
                           color: '#aaaaaa',
                           size: 'sm',
                           flex: 2
                         },
                         {
                           type: 'text',
-                          text: formData.get('fullName'),
-                          wrap: true,
-                          color: '#666666',
-                          size: 'sm',
-                          flex: 4
-                        }
-                      ]
-                    },
-                     {
-                      type: 'box',
-                      layout: 'baseline',
-                      contents: [
-                        {
-                          type: 'text',
-                          text: 'ชื่อร้านค้า:',
-                          color: '#aaaaaa',
-                          size: 'sm',
-                          flex: 2
-                        },
-                        {
-                          type: 'text',
-                          text: formData.get('Nameshop'),
+                          text: formData.get('storeCode'),
                           wrap: true,
                           color: '#666666',
                           size: 'sm',
@@ -291,14 +255,14 @@
                       contents: [
                         {
                           type: 'text',
-                          text: 'ประเภทร้านค้า:',
+                          text: 'ชื่อร้าน:',
                           color: '#aaaaaa',
                           size: 'sm',
                           flex: 2
                         },
                         {
                           type: 'text',
-                          text: formData.get('classroom'),
+                          text: formData.get('storeName'),
                           wrap: true,
                           color: '#666666',
                           size: 'sm',
@@ -312,14 +276,56 @@
                       contents: [
                         {
                           type: 'text',
-                          text: 'กิจกรรม:',
+                          text: 'ประเภท:',
                           color: '#aaaaaa',
                           size: 'sm',
                           flex: 2
                         },
                         {
                           type: 'text',
-                          text: formData.get('activity'),
+                          text: formData.get('storeType'),
+                          wrap: true,
+                          color: '#666666',
+                          size: 'sm',
+                          flex: 4
+                        }
+                      ]
+                    },
+                    {
+                      type: 'box',
+                      layout: 'baseline',
+                      contents: [
+                        {
+                          type: 'text',
+                          text: 'เบอร์โทร:',
+                          color: '#aaaaaa',
+                          size: 'sm',
+                          flex: 2
+                        },
+                        {
+                          type: 'text',
+                          text: formData.get('storePhone'),
+                          wrap: true,
+                          color: '#666666',
+                          size: 'sm',
+                          flex: 4
+                        }
+                      ]
+                    },
+                    {
+                      type: 'box',
+                      layout: 'baseline',
+                      contents: [
+                        {
+                          type: 'text',
+                          text: 'จังหวัด:',
+                          color: '#aaaaaa',
+                          size: 'sm',
+                          flex: 2
+                        },
+                        {
+                          type: 'text',
+                          text: formData.get('province'),
                           wrap: true,
                           color: '#666666',
                           size: 'sm',
@@ -340,19 +346,19 @@
                   contents: [
                     {
                       type: 'text',
-                      text: 'คะแนนรวม',
-                      size: 'md',
+                      text: 'บันทึกโดย',
+                      size: 'sm',
                       color: '#555555',
                       flex: 2
                     },
                     {
                       type: 'text',
-                      text: `${result.totalPoints} คะแนน`,
-                      size: 'md',
-                      color: '#ff4500',
+                      text: formData.get('nameline'),
+                      size: 'sm',
+                      color: '#1e90ff',
                       weight: 'bold',
                       align: 'end',
-                      flex: 2
+                      flex: 3
                     }
                   ]
                 }
@@ -364,22 +370,14 @@
               layout: 'vertical',
               contents: [
                 {
-                  type: 'text',
-                  text: `ชื่อใน Line: ${formData.get('nameline')}`,
-                  size: 'xs',
-                  color: '#888888',
-                  align: 'center',
-                  wrap: true
-                },
-                {
                   type: 'button',
                   style: 'primary',
                   color: '#1e90ff',
                   margin: 'md',
                   action: {
                     type: 'uri',
-                    label: 'บันทึกความดีเพิ่ม',
-                    uri: 'line://app/2008350853-QEq6vlZ8?linkurl=https://test-v-parner.netlify.app/recordofgooddeeds.html'
+                    label: 'บันทึกร้านค้าเพิ่ม',
+                    uri: 'line://app/1656032875-ekP2gBZJ?linkurl=https://recordofgooddeeds.glitch.me/recordofgooddeeds.html'
                   }
                 }
               ],
@@ -400,7 +398,7 @@
       } finally {
         loadingDialog.close();
         submitButton.disabled = false;
-        submitButton.textContent = 'บันทึกการเปลี่ยนแปลง';
+        submitButton.textContent = 'บันทึกข้อมูลร้านค้า';
       }
     });
 
@@ -417,5 +415,3 @@
   </script>
 </body>
 </html>
-
-
