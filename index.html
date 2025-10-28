@@ -2,20 +2,20 @@
 <html lang="th">
 
 <head>
-    <title>ระบบบันทึกความดีนักเรียน</title>
-    <meta name="title" content="ระบบบันทึกความดีนักเรียน" />
-    <meta name="description" content="ระบบบันทึกความดีนักเรียน" />
+    <title>ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา</title>
+    <meta name="title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา" />
+    <meta name="description" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา" />
     <meta name="color-scheme" content="light dark"/>
     <meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
-    <link rel="shortcut icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
+    <link rel="shortcut icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/891/891419.png"/>
     <meta property="og:url" content="/"/>
-    <meta property="og:title" content="ระบบบันทึกความดีนักเรียน"/>
-    <meta property="og:description" content="ระบบบันทึกความดีนักเรียน"/>
-    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.pngg"/>
+    <meta property="og:title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
+    <meta property="og:description" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/891/891419.png"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-title" content="ระบบบันทึกความดีนักเรียน"/>
+    <meta name="apple-mobile-web-app-title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +23,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- LineSeed Fonts -->
     <link href="https://cdn.jsdelivr.net/gh/maketline/goodday/font/stylesheet.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style type="text/css">
         body {
             font-family: 'line_seed_sans_th';
@@ -37,11 +39,31 @@
 
         .container {
             text-align: center;
-            background-color: #ffffff52;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px 30px;
             max-width: 500px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 1;
+        }
+
+        .container > * {
+            position: relative;
+            z-index: 2;
         }
 
         .logo-container {
@@ -50,9 +72,9 @@
 
         .pulse-spinner {
             display: inline-block;
-            border: 3px solid #e3e3e3;
+            border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top: 3px solid #38b2ac;
+            border-top: 3px solid #ffffff;
             width: 50px;
             height: 50px;
             animation: spin 1.5s linear infinite;
@@ -62,7 +84,6 @@
             0% {
                 transform: rotate(0deg);
             }
-
             100% {
                 transform: rotate(360deg);
             }
@@ -74,10 +95,19 @@
             font-weight: 700;
             margin-top: 20px;
             line-height: 1.3;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #e0e7ff;
+            margin-bottom: 30px;
+            font-weight: 300;
         }
 
         .img-fluid {
             margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
 
         .wrapper {
@@ -89,19 +119,30 @@
         }
 
         .btn-custom {
-            background-color: #38b2ac;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
             color: white;
             border-radius: 50px;
-            padding: 12px 25px;
+            padding: 15px 30px;
             font-size: 1.1rem;
             font-weight: bold;
             width: 100%;
             border: none;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .btn-custom:hover {
-            background-color: #319795;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(238, 90, 36, 0.6);
+            background: linear-gradient(45deg, #ff8e8e, #ff7b50);
+        }
+
+        .btn-custom:active {
+            transform: translateY(0);
         }
 
         .logo-container img {
@@ -109,74 +150,245 @@
         }
 
         .logo-container img:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-list {
+            text-align: left;
+            margin: 25px 0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e0e7ff;
+        }
+
+        .feature-list i {
+            color: #4cd137;
+            font-size: 1.2rem;
         }
 
         body {
             margin: 0;
             height: 100vh;
-            background-image: url('https://media0.giphy.com/media/3o6Mb3P4TMee1vJJGU/giphy.gif?cid=6c09b9524m2wse5hf3ss7r9s5cnpzi3pibcqnevek470okvx&ep=v1_gifs_search&rid=giphy.gif&ct=g');
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
+
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #e0e7ff;
+            margin-top: 5px;
+        }
     </style>
-    <title>กำลังพาท่านเข้าสู่หน้าเว็บ...</title>
+    <title>กำลังพาท่านเข้าสู่ระบบร้านค้า...</title>
 </head>
 
 <body>
+    <!-- Floating Icons -->
+    <div class="floating-icons">
+        <div class="floating-icon" style="top: 20%; left: 10%; animation-delay: 0s;">🏪</div>
+        <div class="floating-icon" style="top: 60%; left: 85%; animation-delay: 1s;">📱</div>
+        <div class="floating-icon" style="top: 80%; left: 15%; animation-delay: 2s;">💰</div>
+        <div class="floating-icon" style="top: 30%; left: 80%; animation-delay: 3s;">📊</div>
+        <div class="floating-icon" style="top: 70%; left: 70%; animation-delay: 4s;">🛒</div>
+    </div>
+
     <div class="container">
         <div class="logo-container">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png" class="img-fluid" width="150px" alt="ครบเครื่อง เรื่องไอที">
+            <img src="https://cdn-icons-png.flaticon.com/512/891/891419.png" class="img-fluid" width="120px" alt="ระบบร้านค้า">
         </div>
-        <h1>ระบบบันทึกความดีนักเรียน</h1>
+        
+        <h1>ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา</h1>
+        
+        <div class="subtitle">
+            จัดการข้อมูลร้านค้าของคุณได้อย่างมืออาชีพ
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number" id="storeCount">0</div>
+                <div class="stat-label">ร้านค้า</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="userCount">0</div>
+                <div class="stat-label">ผู้ใช้งาน</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="provinceCount">0</div>
+                <div class="stat-label">จังหวัด</div>
+            </div>
+        </div>
+
+        <!-- Features List -->
+        <div class="feature-list">
+            <ul class="list-unstyled">
+                <li><i class="fas fa-check-circle"></i> บันทึกข้อมูลร้านค้าแต่ละสาขา</li>
+                <li><i class="fas fa-check-circle"></i> จัดการประเภทร้านค้า</li>
+                <li><i class="fas fa-check-circle"></i> ดูรายงานสรุปข้อมูล</li>
+                <li><i class="fas fa-check-circle"></i> อัพเดตข้อมูลแบบเรียลไทม์</li>
+            </ul>
+        </div>
+
+        <!-- Loading Spinner -->
         <div class="wrapper">
             <div class="pulse-spinner"></div>
+            <div style="margin-top: 15px; color: #e0e7ff; font-size: 0.9rem;">
+                กำลังโหลดระบบ...
+            </div>
         </div>
+
+        <!-- Action Button -->
         <div class="button-container">
-            <button class="btn-custom" onclick="redirectToGoodDeedPage()">เข้าสู่ระบบบันทึกความดี</button>
+            <button class="btn-custom" onclick="redirectToStoreSystem()">
+                <i class="fas fa-store"></i>
+                เข้าสู่ระบบจัดการร้านค้า
+            </button>
         </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://static.line-scdn.net/liff/edge/versions/2.9.0/sdk.js"></script>
     <script>
+        // Animate statistics
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start);
+                }
+            }, 16);
+        }
+
+        // Initialize counters with random data for demo
         $(document).ready(function () {
+            // Animate statistics
+            setTimeout(() => {
+                animateCounter(document.getElementById('storeCount'), 156);
+                animateCounter(document.getElementById('userCount'), 89);
+                animateCounter(document.getElementById('provinceCount'), 42);
+            }, 1000);
+
+            // LIFF Initialization
             var path = new URL(window.location);
             var liffId = path.searchParams.get('linkurl');
+            
             liff.init({
                 liffId: "2008350853-QEq6vlZ8" // ใส่ LIFF ID ของคุณที่นี่
             })
-                .then(() => {
-                    if (liff.isInClient()) {
-                        if (liff.getOS() == "ios" || liff.getOS() == "android") {
-                            window.location.replace("" + liffId);
-                        }
-
-                        setTimeout(function () { liff.closeWindow(); }, 50000); // เปลี่ยนเวลาที่ต้องการ Redirect
+            .then(() => {
+                if (liff.isInClient()) {
+                    console.log("Running in LINE app");
+                    
+                    if (liff.getOS() == "ios" || liff.getOS() == "android") {
+                        // Auto-redirect for mobile after 3 seconds
+                        setTimeout(function() { 
+                            redirectToStoreSystem();
+                        }, 3000);
                     }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+
+                    // Auto close after 30 seconds if user doesn't interact
+                    setTimeout(function() { 
+                        liff.closeWindow(); 
+                    }, 30000);
+                } else {
+                    console.log("Running in external browser");
+                }
+            })
+            .catch((err) => {
+                console.log("LIFF initialization error:", err);
+            });
         });
 
-        function redirectToGoodDeedPage() {
-            // เปลี่ยน URL ไปยังหน้าเว็บบันทึกความดีนักเรียน
-            window.location.href = "https://example.com/good-deed-page"; // เปลี่ยน URL ตามที่ต้องการ
+        function redirectToStoreSystem() {
+            // เปลี่ยน URL ไปยังหน้าเว็บระบบจัดการร้านค้า
+            const storeSystemUrl = "https://your-domain.com/store-management-system"; // เปลี่ยน URL ตามที่ต้องการ
+            
+            if (liff.isInClient()) {
+                // If in LINE app, open in external browser
+                liff.openWindow({
+                    url: storeSystemUrl,
+                    external: true
+                });
+            } else {
+                // If in external browser, redirect directly
+                window.location.href = storeSystemUrl;
+            }
         }
 
-        // Check if LIFF is initialized
-        if (liff.isInClient()) {
-            // Add a click event listener to the close button
-            document.getElementById("closeButton").addEventListener("click", function () {
-                // Close the LIFF app when the button is clicked
-                liff.closeWindow();
-            });
-        } else {
-            // Handle the case when the app is not running in the LINE app
-            console.log("This app is not running in the LINE app.");
-        }
+        // Add click event for close button (if needed)
+        document.addEventListener('DOMContentLoaded', function() {
+            // You can add a close button functionality here if needed
+        });
+
+        // Add some interactive effects
+        document.addEventListener('mousemove', function(e) {
+            const container = document.querySelector('.container');
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
