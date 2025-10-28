@@ -135,17 +135,31 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
+    // ใส่ LIFF ID จริงของคุณที่นี่
+    const LIFF_ID = '2005735535-WDvJ5B7j';
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgKVVQUTmZIfGHOa2VGxsCrB0sQ1SF3R70_neGVm8ehW0tA2jUtTBaZaanMlZgjQOXTQ/exec';
     let userProfile;
 
     async function initializeLiff() {
-      await liff.init({ liffId: '2008350853-QEq6vlZ8' });
-      if (liff.isLoggedIn()) {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+        
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+        
         userProfile = await liff.getProfile();
         const userId = userProfile.userId;
         await populateUserInfo(userId);
-      } else {
-        liff.login();
+      } catch (error) {
+        console.error('LIFF initialization failed:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'เกิดข้อผิดพลาด',
+          text: 'ไม่สามารถเริ่มต้นระบบได้ กรุณาลองใหม่อีกครั้ง',
+          confirmButtonColor: '#0000ff'
+        });
       }
     }
 
@@ -187,17 +201,28 @@
           method: 'POST',
           body: formData
         });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const result = await response.json();
+        console.log('Response result:', result);
 
-        if (result.status === 'error') throw new Error(result.message);
+        if (result.status === 'error') {
+          throw new Error(result.message);
+        }
 
+        // แสดง SweetAlert เมื่อบันทึกสำเร็จ
         await Swal.fire({
           icon: 'success',
           title: 'บันทึกสำเร็จ',
-          html: `ข้อมูลร้านค้าถูกบันทึกเรียบร้อยแล้ว<br><strong>จำนวนร้านค้าที่บันทึก: ${result.totalStores} ร้าน</strong>`,
-          confirmButtonColor: '#0000ff'
+          html: `ข้อมูลร้านค้าถูกบันทึกเรียบร้อยแล้ว<br><strong>จำนวนร้านค้าที่บันทึก: ${result.totalStores || 1} ร้าน</strong>`,
+          confirmButtonColor: '#0000ff',
+          confirmButtonText: 'ตกลง'
         });
 
+        // สร้างและส่ง Flex Message
         const flexMessage = {
           type: 'flex',
           altText: 'บันทึกข้อมูลร้านค้าสำเร็จ',
@@ -377,7 +402,7 @@
                   action: {
                     type: 'uri',
                     label: 'บันทึกร้านค้าเพิ่ม',
-                    uri: 'line://app/2008350853-QEq6vlZ8?linkurl=https://intersthec.github.io/test-vparner/recordofgooddeeds.html'
+                    uri: liff.permanentLink.createUrl()
                   }
                 }
               ],
@@ -386,14 +411,26 @@
           }
         };
 
-        await liff.sendMessages([flexMessage]);
-        liff.closeWindow();
+        // ส่ง Flex Message
+        if (liff.isInClient()) {
+          await liff.sendMessages([flexMessage]);
+        }
+
+        // ปิดหน้าต่าง LIFF หลังจากบันทึกสำเร็จ
+        setTimeout(() => {
+          if (liff.isInClient()) {
+            liff.closeWindow();
+          }
+        }, 1500);
+
       } catch (error) {
-        Swal.fire({
+        console.error('Error saving store data:', error);
+        await Swal.fire({
           icon: 'error',
           title: 'เกิดข้อผิดพลาด',
-          text: error.message,
-          confirmButtonColor: '#0000ff'
+          text: error.message || 'ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง',
+          confirmButtonColor: '#0000ff',
+          confirmButtonText: 'ตกลง'
         });
       } finally {
         loadingDialog.close();
@@ -403,17 +440,18 @@
     });
 
     function showLoading(message) {
-      Swal.fire({
+      return Swal.fire({
         title: message,
         allowOutsideClick: false,
-        didOpen: () => Swal.showLoading()
+        showConfirmButton: false,
+        willOpen: () => {
+          Swal.showLoading();
+        }
       });
-      return { close: () => Swal.close() };
     }
 
-    window.onload = initializeLiff;
+    // เริ่มต้น LIFF เมื่อโหลดหน้าเว็บ
+    window.addEventListener('load', initializeLiff);
   </script>
 </body>
 </html>
-
-
