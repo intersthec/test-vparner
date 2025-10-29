@@ -10,11 +10,11 @@
   <meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
   <meta name="format-detection" content="telephone=no"/>
   <meta name="msapplication-tap-highlight" content="no"/>
-  <link rel="shortcut icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
+  <link rel="shortcut icon" type="image/png" href="https://www.greenspot.co.th/assets/images/hero/Vita_banner_Product_000252.png"/>
   <meta property="og:url" content="/"/>
   <meta property="og:title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
   <meta property="og:description" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
-  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
+  <meta property="og:image" content="https://www.greenspot.co.th/assets/images/hero/Vita_banner_Product_000252.png"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
@@ -137,7 +137,7 @@
   <script>
     // ใส่ LIFF ID จริงของคุณที่นี่
     const LIFF_ID = '2008350853-QEq6vlZ8';
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgKVVQUTmZIfGHOa2VGxsCrB0sQ1SF3R70_neGVm8ehW0tA2jUtTBaZaanMlZgjQOXTQ/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoK8KODaSGWf0q0G4BmKRt1l9EHvl57p3_EIlSbWQDRnhAA-fa7vPMVHFGnsFQI18o/exec';
     let userProfile;
 
     async function initializeLiff() {
@@ -168,7 +168,7 @@
 
       const loadingDialog = showLoading('กำลังดึงข้อมูล...');
       try {
-        const response = await fetch(`${SCRIPT_URL}?userId=${userId}`);
+        const response = await fetch(`${SCRIPT_URL}?action=getUserData&userId=${userId}`);
         if (!response.ok) throw new Error(`การเชื่อมต่อล้มเหลว: ${response.status}`);
 
         const data = await response.json();
@@ -455,5 +455,3 @@
   </script>
 </body>
 </html>
-
-
