@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา</title>
   <meta name="title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา" />
-  <meta name="description" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา" />
+  <meta name="description" content="システムบันทึกข้อมูลร้านค้าแต่ละสาขา" />
   <meta name="color-scheme" content="light dark"/>
   <meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
   <meta name="format-detection" content="telephone=no"/>
   <meta name="msapplication-tap-highlight" content="no"/>
-  <link rel="shortcut icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
+  <link rel="shortcut icon" type="image/png" href="https://www.greenspot.co.th/assets/images/hero/Vita_banner_Product_000252.png"/>
   <meta property="og:url" content="/"/>
   <meta property="og:title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
   <meta property="og:description" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
-  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
+  <meta property="og:image" content="https://www.greenspot.co.th/assets/images/hero/Vita_banner_Product_000252.png"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-title" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
@@ -174,7 +174,8 @@
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzaCgK5C3il4rhx1_Sh3f5cxt9T0xC8ZciJP1l_oL0A9iCt6BFP8h_h9H1B4A2fm2A0qA/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwhFnOHA4C8Cbaqt_lBK6WJfFIc1X6k-YlPfD3-Huh-k3o3EAdR6cahcu0sAFdwh7B-/exec';
+    let userProfile;
 
     async function initializeLiff() {
       try {
@@ -184,12 +185,12 @@
           return;
         }
 
-        const profile = await liff.getProfile();
-        document.getElementById('uid').value = profile.userId;
-        document.getElementById('displayName').value = profile.displayName;
-        document.getElementById('profileImage').src = profile.pictureUrl || 'https://via.placeholder.com/100';
+        userProfile = await liff.getProfile();
+        document.getElementById('uid').value = userProfile.userId;
+        document.getElementById('displayName').value = userProfile.displayName;
+        document.getElementById('profileImage').src = userProfile.pictureUrl || 'https://via.placeholder.com/100';
 
-        await fetchUserData(profile.userId);
+        await fetchUserData(userProfile.userId);
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -236,6 +237,7 @@
       submitButton.textContent = 'กำลังบันทึก...';
 
       const formData = new FormData(e.target);
+      formData.append('action', 'saveStoreData');
 
       const loadingDialog = showLoading('กำลังบันทึกข้อมูลร้านค้า...');
       try {
@@ -247,19 +249,222 @@
 
         if (result.status === 'error') throw new Error(result.message);
 
-        Swal.fire({
+        // สร้างและส่ง Flex Message
+        const flexMessage = {
+          type: 'flex',
+          altText: 'บันทึกข้อมูลร้านค้าสำเร็จ',
+          contents: {
+            type: 'bubble',
+            header: {
+              type: 'box',
+              layout: 'vertical',
+              contents: [
+                {
+                  type: 'text',
+                  text: '🏪 บันทึกร้านค้าสำเร็จ 🏪',
+                  weight: 'bold',
+                  size: 'xl',
+                  align: 'center',
+                  color: '#ffffff'
+                }
+              ],
+              backgroundColor: '#1e90ff'
+            },
+            body: {
+              type: 'box',
+              layout: 'vertical',
+              contents: [
+                {
+                  type: 'box',
+                  layout: 'vertical',
+                  margin: 'lg',
+                  spacing: 'sm',
+                  contents: [
+                    {
+                      type: 'box',
+                      layout: 'baseline',
+                      contents: [
+                        {
+                          type: 'text',
+                          text: 'รหัสร้าน:',
+                          color: '#aaaaaa',
+                          size: 'sm',
+                          flex: 2
+                        },
+                        {
+                          type: 'text',
+                          text: formData.get('storeCode'),
+                          wrap: true,
+                          color: '#666666',
+                          size: 'sm',
+                          flex: 4
+                        }
+                      ]
+                    },
+                    {
+                      type: 'box',
+                      layout: 'baseline',
+                      contents: [
+                        {
+                          type: 'text',
+                          text: 'ชื่อร้าน:',
+                          color: '#aaaaaa',
+                          size: 'sm',
+                          flex: 2
+                        },
+                        {
+                          type: 'text',
+                          text: formData.get('storeName'),
+                          wrap: true,
+                          color: '#666666',
+                          size: 'sm',
+                          flex: 4
+                        }
+                      ]
+                    },
+                    {
+                      type: 'box',
+                      layout: 'baseline',
+                      contents: [
+                        {
+                          type: 'text',
+                          text: 'ประเภท:',
+                          color: '#aaaaaa',
+                          size: 'sm',
+                          flex: 2
+                        },
+                        {
+                          type: 'text',
+                          text: formData.get('storeType'),
+                          wrap: true,
+                          color: '#666666',
+                          size: 'sm',
+                          flex: 4
+                        }
+                      ]
+                    },
+                    {
+                      type: 'box',
+                      layout: 'baseline',
+                      contents: [
+                        {
+                          type: 'text',
+                          text: 'เบอร์โทร:',
+                          color: '#aaaaaa',
+                          size: 'sm',
+                          flex: 2
+                        },
+                        {
+                          type: 'text',
+                          text: formData.get('storePhone'),
+                          wrap: true,
+                          color: '#666666',
+                          size: 'sm',
+                          flex: 4
+                        }
+                      ]
+                    },
+                    {
+                      type: 'box',
+                      layout: 'baseline',
+                      contents: [
+                        {
+                          type: 'text',
+                          text: 'จังหวัด:',
+                          color: '#aaaaaa',
+                          size: 'sm',
+                          flex: 2
+                        },
+                        {
+                          type: 'text',
+                          text: formData.get('province'),
+                          wrap: true,
+                          color: '#666666',
+                          size: 'sm',
+                          flex: 4
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  type: 'separator',
+                  margin: 'lg'
+                },
+                {
+                  type: 'box',
+                  layout: 'horizontal',
+                  margin: 'lg',
+                  contents: [
+                    {
+                      type: 'text',
+                      text: 'บันทึกโดย',
+                      size: 'sm',
+                      color: '#555555',
+                      flex: 2
+                    },
+                    {
+                      type: 'text',
+                      text: userProfile.displayName,
+                      size: 'sm',
+                      color: '#1e90ff',
+                      weight: 'bold',
+                      align: 'end',
+                      flex: 3
+                    }
+                  ]
+                }
+              ],
+              backgroundColor: '#ffffff'
+            },
+            footer: {
+              type: 'box',
+              layout: 'vertical',
+              contents: [
+                {
+                  type: 'button',
+                  style: 'primary',
+                  color: '#1e90ff',
+                  margin: 'md',
+                  action: {
+                    type: 'uri',
+                    label: 'บันทึกร้านค้าเพิ่ม',
+                    uri: liff.permanentLink.createUrl()
+                  }
+                }
+              ],
+              backgroundColor: '#f0f8ff'
+            }
+          }
+        };
+
+        // ส่ง Flex Message
+        if (liff.isInClient()) {
+          await liff.sendMessages([flexMessage]);
+        }
+
+        // แสดง SweetAlert เมื่อบันทึกสำเร็จ
+        await Swal.fire({
           icon: 'success',
           title: 'บันทึกสำเร็จ',
           text: result.message || 'ข้อมูลร้านค้าถูกบันทึกเรียบร้อยแล้ว',
-          confirmButtonColor: '#1e90ff'
+          confirmButtonColor: '#1e90ff',
+          confirmButtonText: 'ตกลง'
         });
 
+        // ปิดหน้าต่าง LIFF หลังจากบันทึกสำเร็จ
+        if (liff.isInClient()) {
+          liff.closeWindow();
+        }
+
       } catch (error) {
-        Swal.fire({
+        console.error('Error saving store data:', error);
+        await Swal.fire({
           icon: 'error',
           title: 'เกิดข้อผิดพลาด',
-          text: error.message,
-          confirmButtonColor: '#1e90ff'
+          text: error.message || 'ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง',
+          confirmButtonColor: '#1e90ff',
+          confirmButtonText: 'ตกลง'
         });
       } finally {
         loadingDialog.close();
@@ -274,18 +479,18 @@
     });
 
     function showLoading(message) {
-      Swal.fire({
+      return Swal.fire({
         title: message,
         allowOutsideClick: false,
-        didOpen: () => Swal.showLoading()
+        showConfirmButton: false,
+        willOpen: () => {
+          Swal.showLoading();
+        }
       });
-      return { close: () => Swal.close() };
     }
 
-    initializeLiff();
+    // เริ่มต้น LIFF เมื่อโหลดหน้าเว็บ
+    window.addEventListener('load', initializeLiff);
   </script>
 </body>
 </html>
-
-
-
