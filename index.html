@@ -2,141 +2,263 @@
 <html lang="th">
 
 <head>
-    <title>ระบบบันทึกความดีนักเรียน</title>
-    <meta name="title" content="ระบบบันทึกความดีนักเรียน" />
-    <meta name="description" content="ระบบบันทึกความดีนักเรียน" />
-    <meta name="color-scheme" content="light dark"/>
-    <meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <meta name="msapplication-tap-highlight" content="no"/>
-    <link rel="shortcut icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png"/>
-    <meta property="og:url" content="/"/>
-    <meta property="og:title" content="ระบบบันทึกความดีนักเรียน"/>
-    <meta property="og:description" content="ระบบบันทึกความดีนักเรียน"/>
-    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.pngg"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-title" content="ระบบบันทึกความดีนักเรียน"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>ระบบบันทึกข้อมูลร้านค้า</title>
+    <meta name="title" content="ระบบบันทึกข้อมูลร้านค้า" />
+    <meta name="description" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา" />
+    <meta name="color-scheme" content="light dark"/>
+    <meta name="viewport" content="viewport-fit=cover,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <link rel="shortcut icon" type="image/png" href="https://img2.pic.in.th/pic/greenspot-company-logo39db3abc0b70a4a2.png"/>
+    <meta property="og:url" content="/"/>
+    <meta property="og:title" content="ระบบบันทึกข้อมูลร้านค้า"/>
+    <meta property="og:description" content="ระบบบันทึกข้อมูลร้านค้าแต่ละสาขา"/>
+    <meta property="og:image" content="https://img2.pic.in.th/pic/greenspot-company-logo39db3abc0b70a4a2.png"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-title" content="ระบบบันทึกข้อมูลร้านค้า"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- LineSeed Fonts -->
-    <link href="https://cdn.jsdelivr.net/gh/maketline/goodday/font/stylesheet.min.css" rel="stylesheet">
-    <style type="text/css">
-        body {
-            font-family: 'line_seed_sans_th';
-            background-color: #f8fafc;
-            padding-top: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- LineSeed Fonts -->
+    <link href="https://cdn.jsdelivr.net/gh/maketline/goodday/font/stylesheet.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            font-family: 'line_seed_sans_th';
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            padding-top: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
 
-        .container {
-            text-align: center;
-            background-color: #ffffff52;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            max-width: 500px;
-        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 20%);
+            z-index: -1;
+        }
 
-        .logo-container {
-            margin-bottom: 20px;
-        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 40px 30px;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-        .pulse-spinner {
-            display: inline-block;
-            border: 3px solid #e3e3e3;
-            border-radius: 50%;
-            border-top: 3px solid #38b2ac;
-            width: 50px;
-            height: 50px;
-            animation: spin 1.5s linear infinite;
-        }
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
+        .logo-container {
+            margin-bottom: 25px;
+            position: relative;
+        }
 
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+        .logo-container::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
 
-        h1 {
-            font-size: 2.2rem;
-            color: #ffffff;
-            font-weight: 700;
-            margin-top: 20px;
-            line-height: 1.3;
-        }
+        .pulse-spinner {
+            display: inline-block;
+            border: 3px solid rgba(255, 126, 95, 0.2);
+            border-radius: 50%;
+            border-top: 3px solid #ff7e5f;
+            width: 50px;
+            height: 50px;
+            animation: spin 1.5s linear infinite;
+            margin: 20px 0;
+        }
 
-        .img-fluid {
-            margin-bottom: 20px;
-        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
-        .wrapper {
-            margin-top: 20px;
-        }
+        h1 {
+            font-size: 2.2rem;
+            color: #333;
+            font-weight: 700;
+            margin-top: 20px;
+            line-height: 1.3;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-        .button-container {
-            margin-top: 30px;
-        }
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
 
-        .btn-custom {
-            background-color: #38b2ac;
-            color: white;
-            border-radius: 50px;
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            width: 100%;
-            border: none;
-            transition: background-color 0.3s;
-        }
+        .img-fluid {
+            margin-bottom: 20px;
+            transition: transform 0.5s ease;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+        }
 
-        .btn-custom:hover {
-            background-color: #319795;
-        }
+        .img-fluid:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
 
-        .logo-container img {
-            transition: transform 0.3s ease-in-out;
-        }
+        .wrapper {
+            margin-top: 20px;
+        }
 
-        .logo-container img:hover {
-            transform: scale(1.1);
-        }
+        .button-container {
+            margin-top: 30px;
+        }
 
-        body {
-            margin: 0;
-            height: 100vh;
-            background-image: url('https://media0.giphy.com/media/3o6Mb3P4TMee1vJJGU/giphy.gif?cid=6c09b9524m2wse5hf3ss7r9s5cnpzi3pibcqnevek470okvx&ep=v1_gifs_search&rid=giphy.gif&ct=g');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-    </style>
-    <title>กำลังพาท่านเข้าสู่หน้าเว็บ...</title>
+        .btn-custom {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            color: white;
+            border-radius: 50px;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 100%;
+            border: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 126, 95, 0.6);
+            color: white;
+        }
+
+        .btn-custom:active {
+            transform: translateY(1px);
+        }
+
+        .btn-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-custom:hover::before {
+            left: 100%;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 120px;
+            margin: 10px;
+            padding: 15px 10px;
+            background: rgba(255, 126, 95, 0.1);
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ff7e5f;
+        }
+
+        .feature-text {
+            font-size: 0.9rem;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, 10px); }
+            100% { transform: translate(0, -0px); }
+        }
+
+        /* เพิ่มการแสดงผลสำหรับมือถือ */
+        @media (max-width: 576px) {
+            .container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .features {
+                flex-direction: column;
+            }
+            
+            .feature {
+                min-width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
+    <title>กำลังพาท่านเข้าสู่ระบบบันทึกร้านค้า...</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="logo-container">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Round_Landmark_School_Icon_-_Transparent.svg/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png" class="img-fluid" width="150px" alt="ครบเครื่อง เรื่องไอที">
-        </div>
-        <h1>ระบบบันทึกความดีนักเรียน</h1>
-        <div class="wrapper">
-            <div class="pulse-spinner"></div>
-        </div>
-        <div class="button-container">
-            <button class="btn-custom" onclick="redirectToGoodDeedPage()">เข้าสู่ระบบบันทึกความดี</button>
-        </div>
-    </div>
+    <div class="container">
+        <div class="logo-container">
+            <img src="https://cdn-icons-png.flaticon.com/512/2830/2830284.png" class="img-fluid floating" width="150px" alt="ระบบบันทึกร้านค้า"
+        
+        <div class="wrapper">
+            <div class="pulse-spinner"></div>
+        </div>
+        <div class="button-container">
+            <button class="btn-custom" onclick="redirectToStorePage()">เข้าสู่ระบบบันทึกร้านค้า</button>
+        </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://static.line-scdn.net/liff/edge/versions/2.9.0/sdk.js"></script>
